@@ -16,6 +16,8 @@ class GithubSecretsManager implements Plugin<Project> {
 abstract class GithubSecretsManagerTask extends DefaultTask {
 	@TaskAction
 	def action() {
-		println "Hello from task action"
+		System.getenv().forEach { key, value ->
+			println "$key -> $value"
+		}
 	}
 }
