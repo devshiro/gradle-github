@@ -5,6 +5,7 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.tasks.TaskAction
+import org.kohsuke.github.GitHubBuilder
 
 class GithubSecretsManager implements Plugin<Project> {
 
@@ -19,14 +20,13 @@ abstract class GithubSecretsManagerTask extends DefaultTask {
 	def action() {
 		def githubToken = System.getenv("GITHUB_TOKEN")
 		if (StringUtils.isEmpty(githubToken)) {
-			println "NO github token found :("
+			throw new IllegalStateException("NO github token found :(")
 		} else {
-			println "GITHUB_TOKEN -> $githubToken"
+			println "GITHUB_TOKEN(${githubToken.length()})"
 		}
 
-
-		System.getenv().forEach { key, value ->
-			println "$key -> $value"
-		}
+		def github = new GitHubBuilder().withJwtToken(githubToken).build()
+		def pubKey = github.getRepository(System.getenv("GITHUB_REPOSITORY")).getPublicKey()
+		println "Repository public key -> ${pubKey.keyId}"
 	}
 }
