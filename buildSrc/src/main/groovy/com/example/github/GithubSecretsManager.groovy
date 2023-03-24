@@ -29,7 +29,7 @@ abstract class GithubSecretsManagerTask extends DefaultTask {
 			println "GITHUB_TOKEN(${githubToken.length()})"
 		}
 
-		def github = new GitHubBuilder().withJwtToken(githubToken).build()
+		def github = new GitHubBuilder().withOAuthToken(githubToken).build()
 		def repository = "devshiro/gradle-github"
 
 		def repo = github.getRepository(repository)
