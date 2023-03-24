@@ -8,8 +8,10 @@ permissions:
   contents: read
 
 jobs:
-  build:
+  main:
     runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Fetch
         uses: actions/checkout@v3
