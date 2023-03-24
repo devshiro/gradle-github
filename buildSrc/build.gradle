@@ -1,0 +1,23 @@
+plugins {
+	id 'java-gradle-plugin'
+}
+
+repositories {
+	gradlePluginPortal()
+}
+
+dependencies {
+	implementation gradleApi()
+	implementation localGroovy()
+
+	implementation 'org.kohsuke:github-api:1.314'
+}
+
+gradlePlugin {
+	plugins {
+		githubSecretsManager {
+			id = 'github-secrets-manager'
+			implementationClass = 'com.example.github.GithubSecretsManager'
+		}
+	}
+}
