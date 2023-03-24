@@ -11,6 +11,8 @@ dependencies {
 	implementation localGroovy()
 
 	implementation 'org.kohsuke:github-api:1.314'
+	implementation "com.goterl:lazysodium-java:5.1.4"
+	implementation "net.java.dev.jna:jna:5.13.0"
 }
 
 gradlePlugin {

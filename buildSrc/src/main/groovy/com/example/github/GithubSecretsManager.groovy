@@ -1,5 +1,9 @@
 package com.example.github
 
+import com.goterl.lazysodium.LazySodiumJava
+import com.goterl.lazysodium.SodiumJava
+import com.goterl.lazysodium.utils.Key
+import com.goterl.lazysodium.utils.LibraryLoader
 import org.apache.commons.lang3.StringUtils
 import org.gradle.api.DefaultTask
 import org.gradle.api.Plugin
@@ -26,7 +30,20 @@ abstract class GithubSecretsManagerTask extends DefaultTask {
 		}
 
 		def github = new GitHubBuilder().withJwtToken(githubToken).build()
-		def pubKey = github.getRepository(System.getenv("GITHUB_REPOSITORY")).getPublicKey()
-		println "Repository public key -> ${pubKey.keyId}"
+		def repository = "devshiro/gradle-github"
+
+		def repo = github.getRepository(repository)
+
+		def pubKey = repo.getPublicKey()
+		println "Repository public key -> ${pubKey.key}"
+		def secret = "Super secret don't leak"
+
+		def sodium = new LazySodiumJava(new SodiumJava(LibraryLoader.Mode.BUNDLED_ONLY))
+		def key = Key.fromBase64String(pubKey.key)
+		def cypher = sodium.cryptoBoxSealEasy(secret, key)
+
+		println "Cypher -> $cypher"
+
+		repo.createSecret("SUPER_SECRET", cypher, pubKey.keyId)
 	}
 }
