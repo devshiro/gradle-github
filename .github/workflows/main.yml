@@ -5,11 +5,10 @@ on:
     branches: [ main ]
 
 permissions:
-  contents: read
+  contents: read-all
 
 jobs:
   main:
-    permissions: write-all
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
