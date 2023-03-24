@@ -17,7 +17,7 @@ class GithubSecretsManager implements Plugin<Project> {
 abstract class GithubSecretsManagerTask extends DefaultTask {
 	@TaskAction
 	def action() {
-		def githubToken = System.getenv("GITHUB_TOKEN ")
+		def githubToken = System.getenv("GITHUB_TOKEN")
 		if (StringUtils.isEmpty(githubToken)) {
 			println "NO github token found :("
 		} else {
