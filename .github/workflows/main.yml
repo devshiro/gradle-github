@@ -11,13 +11,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Fetch
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - name: Validate Gradle wrapper
-        uses: gradle/wrapper-validation-action@v1
-      - name: Execute
+      - name: Checkout project sources
+        uses: actions/checkout@v2
+      - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
-        with:
-          arguments: githubSecretsManagerTask
+      - name: Run build with Gradle Wrapper
+        run: ./gradlew githubSecretsManagerTask
