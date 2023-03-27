@@ -4,17 +4,11 @@ on:
   push:
     branches: [ main ]
 
-permissions:
-  contents: write
-  repository-projects: read
-  actions: write
-  id-token: write
-
 jobs:
   main:
     runs-on: ubuntu-latest
     env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
     steps:
       - name: curl
         run: |
