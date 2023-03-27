@@ -7,7 +7,7 @@ on:
 permissions:
   contents: write
   repository-projects: read
-  actions: read
+  actions: write
   id-token: write
 
 jobs:
