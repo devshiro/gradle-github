@@ -6,16 +6,22 @@ on:
 
 jobs:
   main:
-    permissions: read-all
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - name: Fetch
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - name: Execute
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: githubSecretsManagerTask
+      - name: curl
+        run: |
+          curl -L \
+          -H "Accept: application/vnd.github+json" \
+          -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}"\
+          -H "X-GitHub-Api-Version: 2022-11-28" \
+          https://api.github.com/repos/devshiro/gradle-github/actions/secrets/public-key
+#      - name: Fetch
+#        uses: actions/checkout@v3
+#        with:
+#          fetch-depth: 0
+#      - name: Execute
+#        uses: gradle/gradle-build-action@v2
+#        with:
+#          arguments: githubSecretsManagerTask
