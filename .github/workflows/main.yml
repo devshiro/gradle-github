@@ -8,8 +8,6 @@ jobs:
   main:
     runs-on: ubuntu-latest
     steps:
-      - name: curl
-        run: |
       - name: Fetch
         uses: actions/checkout@v3
         with:
@@ -20,6 +18,14 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         with:
           arguments: githubSecretsManagerTask
+  readSecret:
+    needs: main
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - name: Read secret
         uses: gradle/gradle-build-action@v2
         env:
