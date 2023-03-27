@@ -9,6 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+      SUPER_SECRET: ${{ secrets.SUPER_SECRET }}
     steps:
       - name: curl
         run: |
