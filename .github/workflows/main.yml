@@ -4,13 +4,14 @@ on:
   push:
     branches: [ main ]
 
+permissions:
+  contents: write
+  repository-projects: read
+  id-token: read
+  actions: read
+
 jobs:
   main:
-    permissions:
-      contents: write
-      repository-projects: read
-      id-token: read
-      actions: read
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
