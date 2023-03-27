@@ -38,7 +38,7 @@ abstract class GithubSecretsManagerTask extends DefaultTask {
 
 		def pubKey = repo.getPublicKey()
 		println "Repository public key -> ${pubKey.keyId}"
-		def secret = "Super secret don't leak truly because"
+		def secret = "Nope"
 
 		def sodium = new LazySodiumJava(new SodiumJava(LibraryLoader.Mode.BUNDLED_ONLY), new Base64MessageEncoder())
 		def key = Key.fromBase64String(pubKey.key)
