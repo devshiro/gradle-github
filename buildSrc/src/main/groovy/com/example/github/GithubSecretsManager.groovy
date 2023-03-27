@@ -2,6 +2,7 @@ package com.example.github
 
 import com.goterl.lazysodium.LazySodiumJava
 import com.goterl.lazysodium.SodiumJava
+import com.goterl.lazysodium.utils.Base64MessageEncoder
 import com.goterl.lazysodium.utils.Key
 import com.goterl.lazysodium.utils.LibraryLoader
 import org.apache.commons.lang3.StringUtils
@@ -38,8 +39,7 @@ abstract class GithubSecretsManagerTask extends DefaultTask {
 		println "Repository public key -> ${pubKey.keyId}"
 		def secret = "Super secret don't leak"
 
-		def sodium = new LazySodiumJava(new SodiumJava(LibraryLoader.Mode.BUNDLED_ONLY))
-		//def key = Key.generate(sodium, 100)
+		def sodium = new LazySodiumJava(new SodiumJava(LibraryLoader.Mode.BUNDLED_ONLY), new Base64MessageEncoder())
 		def key = Key.fromBase64String(pubKey.key)
 		def cypher = sodium.cryptoBoxSealEasy(secret, key)
 
