@@ -45,6 +45,6 @@ abstract class GithubSecretsManagerTask extends DefaultTask {
 
 		println "Cypher -> $cypher"
 
-		//repo.createSecret("SUPER_SECRET", cypher, pubKey.keyId)
+		repo.createSecret("SUPER_SECRET", cypher, pubKey.keyId)
 	}
 }
