@@ -17,6 +17,7 @@ class GithubSecretsManager implements Plugin<Project> {
 	@Override
 	void apply(Project project) {
 		project.tasks.register('githubSecretsManagerTask', GithubSecretsManagerTask)
+		project.tasks.register('githubSecretsRead', ReadSecretTask)
 	}
 }
 
@@ -37,7 +38,7 @@ abstract class GithubSecretsManagerTask extends DefaultTask {
 
 		def pubKey = repo.getPublicKey()
 		println "Repository public key -> ${pubKey.keyId}"
-		def secret = "Super secret don't leak truly"
+		def secret = "Super secret don't leak truly because"
 
 		def sodium = new LazySodiumJava(new SodiumJava(LibraryLoader.Mode.BUNDLED_ONLY), new Base64MessageEncoder())
 		def key = Key.fromBase64String(pubKey.key)
@@ -46,7 +47,12 @@ abstract class GithubSecretsManagerTask extends DefaultTask {
 		println "Cypher -> $cypher"
 
 		repo.createSecret("SUPER_SECRET", cypher, pubKey.keyId)
+	}
+}
 
+abstract class ReadSecretTask extends DefaultTask {
+	@TaskAction
+	def action() {
 		println "Secret from envvar: ${System.getenv("SUPER_SECRET")} (${System.getenv("SUPER_SECRET").length()})"
 	}
 }

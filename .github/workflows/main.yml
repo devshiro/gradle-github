@@ -7,9 +7,6 @@ on:
 jobs:
   main:
     runs-on: ubuntu-latest
-    env:
-      GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-      SUPER_SECRET: ${{ secrets.SUPER_SECRET }}
     steps:
       - name: curl
         run: |
@@ -17,7 +14,15 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - name: Execute
+      - name: Update secret
         uses: gradle/gradle-build-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         with:
           arguments: githubSecretsManagerTask
+      - name: Read secret
+        uses: gradle/gradle-build-action@v2
+        env:
+          SUPER_SECRET: ${{ secrets.SUPER_SECRET }}
+        with:
+          arguments: githubSecretsRead
