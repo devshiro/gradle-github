@@ -8,6 +8,7 @@ permissions:
   contents: write
   repository-projects: read
   actions: read
+  id-token: write
 
 jobs:
   main:
