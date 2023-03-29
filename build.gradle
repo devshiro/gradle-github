@@ -1,3 +1,18 @@
 plugins {
     id 'github-secrets-manager'
 }
+
+tasks.register('produce') {
+    doLast {
+        def output = '{"asd":"value"}'
+        println output
+    }
+}
+
+
+tasks.register('consume') {
+    doLast {
+        def input = System.getenv("GITHUB_OUTPUT")
+        println "Read input: ${input}"
+    }
+}

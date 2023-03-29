@@ -7,28 +7,17 @@ on:
 jobs:
   main:
     runs-on: ubuntu-latest
+    outputs:
+      json: ${{ steps.produce_config.outputs.json }}
     steps:
       - name: Fetch
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
       - name: Update secret
-        uses: gradle/gradle-build-action@v2
+        id: produce_config
+        run: echo "json={\"asd\":\"test\"}" >> "$GITHUB_OUTPUT"
+      - name: Use secret
         env:
-          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-        with:
-          arguments: githubSecretsManagerTask
-  readSecret:
-    needs: main
-    runs-on: ubuntu-latest
-    steps:
-      - name: Fetch
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - name: Read secret
-        uses: gradle/gradle-build-action@v2
-        env:
-          SUPER_SECRET: ${{ secrets.SUPER_SECRET }}
-        with:
-          arguments: githubSecretsRead
+          JSON: ${{ needs.main.outputs.json }}
+        run: echo "json value $JSON"
