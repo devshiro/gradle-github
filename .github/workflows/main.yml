@@ -14,8 +14,7 @@ jobs:
       - id: step1
         run: |
           SECRET="test=hello-world"
-          echo "::add-mask::$SECRET"
-          echo "$SECRET" >> "$GITHUB_OUTPUT"
+          echo ":add-mask::$SECRET" >> "$GITHUB_OUTPUT"
   job2:
     runs-on: ubuntu-latest
     needs: job1
