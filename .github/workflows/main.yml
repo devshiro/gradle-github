@@ -13,7 +13,6 @@ jobs:
       - id: step1
         run: |
           SECRET="secret"
-          echo "::add-mask::$SECRET"
           echo "secret=$SECRET" >> $GITHUB_ENV
   job2:
     runs-on: ubuntu-latest
