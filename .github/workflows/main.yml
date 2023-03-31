@@ -11,6 +11,7 @@ jobs:
       - id: step1
         run: |
           SECRET="secret"
+          echo "::add-mask::$SECRET"
           echo "secret=$SECRET" >> $GITHUB_ENV
       - run: |
-          echo "$SECRET"
+          echo "secret is $SECRET"
