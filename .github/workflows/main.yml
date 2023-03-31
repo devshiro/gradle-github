@@ -19,6 +19,6 @@ jobs:
     runs-on: ubuntu-latest
     needs: job1
     steps:
-        run: |
+      - run: |
           echo "::add-mask::$SECRET"
           echo "$SECRET"
