@@ -10,8 +10,8 @@ jobs:
     steps:
       - id: step1
         run: |
-          SECRET="secret"
+          SECRET="{\"asd\":\"value\"}"
           echo "::add-mask::$SECRET"
-          echo "secret=$SECRET" >> $GITHUB_ENV
+          echo "json=$SECRET" >> $GITHUB_ENV
       - run: |
-          echo "secret is $SECRET"
+          echo secret is $JSON
