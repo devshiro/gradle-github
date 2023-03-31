@@ -8,8 +8,10 @@ jobs:
   job1:
     runs-on: ubuntu-latest
     steps:
-      - id: step1
-        run: |
+      - uses: actions/checkout@v3
+      - run: |
+          ./gradlew produce
+      - run: |
           SECRET="{\"asd\":\"value\"}"
           echo "::add-mask::$SECRET"
           echo "json=$SECRET" >> $GITHUB_ENV
