@@ -15,4 +15,4 @@ jobs:
           SECRET=$(cat build/secret.json)
           echo "json=$SECRET" >> $GITHUB_ENV
       - run: |
-          echo secret is $JSON
+          echo secret is $json
