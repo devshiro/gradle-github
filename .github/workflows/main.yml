@@ -15,5 +15,6 @@ jobs:
           SECRET=$(cat build/secret.json)
           echo "::add-mask::$SECRET"
           echo "json=$SECRET" >> $GITHUB_ENV
+          ls -l $GITHUB_ENV
       - run: |
           echo secret is $json
