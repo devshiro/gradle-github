@@ -12,7 +12,7 @@ jobs:
       - run: |
           ./gradlew produce
       - run: |
-          SECRET="{\"asd\":\"value\"}"
+          SECRET=$(cat build/secret.json)
           echo "::add-mask::$SECRET"
           echo "json=$SECRET" >> $GITHUB_ENV
       - run: |

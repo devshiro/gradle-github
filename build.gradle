@@ -3,9 +3,18 @@ plugins {
 }
 
 tasks.register('produce') {
+    def fileName = "$buildDir/secret.json"
+    def file = new File(fileName)
+
+    doFirst {
+        if (file.exists()) {
+            file.delete()
+        }
+    }
     doLast {
         def output = '{"asd":"value"}'
-        println output
+        file.getParentFile().mkdirs()
+        file.write(output)
     }
 }
 
