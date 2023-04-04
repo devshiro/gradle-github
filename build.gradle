@@ -2,26 +2,12 @@ plugins {
     id 'github-secrets-manager'
 }
 
-tasks.register('enableSecret') {
-    def secretValue = "This is some secret"
-
-    doFirst {
-        println "::add-mask::$secretValue"
-    }
-
-    doLast {
-        println "Secret value: $secretValue"
-    }
-}
-
-
-
 tasks.register('produce') {
     def secretJson = '{"asd":"value"}'
     def githubEnvFile = new File(System.getenv("GITHUB_ENV"))
 
     doFirst {
-        println "::add-mask::$secretJson"
+        //println "::add-mask::$secretJson"
     }
 
     doLast {
