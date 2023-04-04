@@ -17,25 +17,14 @@ tasks.register('enableSecret') {
 
 
 tasks.register('produce') {
-    def fileName = "$buildDir/secret.json"
-    def file = new File(fileName)
+    def secretJson = '{"asd":"value"}'
+    def githubEnvFile = new File(System.getenv("GITHUB_ENV"))
 
     doFirst {
-        if (file.exists()) {
-            file.delete()
-        }
+        println "::add-mask::$secretJson"
     }
-    doLast {
-        def output = '{"asd":"value"}'
-        file.getParentFile().mkdirs()
-        file.write(output)
-    }
-}
 
-
-tasks.register('consume') {
     doLast {
-        def input = System.getenv("GITHUB_OUTPUT")
-        println "Read input: ${input}"
+        githubEnvFile.write("json=$secretJson")
     }
 }

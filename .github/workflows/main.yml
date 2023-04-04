@@ -10,12 +10,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: |
-          ./gradlew enableSecret
           ./gradlew produce
-      - run: |
-          SECRET=$(cat build/secret.json)
-          echo "::add-mask::$SECRET"
-          echo "json=$SECRET" >> $GITHUB_ENV
-          ls -l $GITHUB_ENV
       - run: |
           echo secret is $json
