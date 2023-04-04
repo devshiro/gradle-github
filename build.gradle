@@ -2,6 +2,20 @@ plugins {
     id 'github-secrets-manager'
 }
 
+tasks.register('enableSecret') {
+    def secretValue = "This is some secret"
+
+    doFirst {
+        println "::add-mask::$secretValue"
+    }
+
+    doLast {
+        println "Secret value: $secretValue"
+    }
+}
+
+
+
 tasks.register('produce') {
     def fileName = "$buildDir/secret.json"
     def file = new File(fileName)
